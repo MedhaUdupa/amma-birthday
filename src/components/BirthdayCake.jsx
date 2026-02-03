@@ -35,7 +35,7 @@ const Candle = ({ index }) => {
 }
 
 const BirthdayCake = () => {
-  const candles = Array.from({ length: 48 }, (_, i) => i)
+  const candles = Array.from({ length: 4 }, (_, i) => i)
 
   return (
     <div className="relative w-full flex justify-center">
@@ -55,7 +55,7 @@ const BirthdayCake = () => {
         <div className="absolute top-0 left-0 right-0 h-2 bg-white rounded-t-2xl mx-4" />
         
         {/* Candles Container */}
-        <div className="absolute -top-6 sm:-top-8 left-0 right-0 flex justify-center gap-0.5 sm:gap-1 flex-wrap px-2"
+        <div className="absolute -top-6 sm:-top-8 left-0 right-0 flex justify-center gap-2 sm:gap-3 px-2"
              style={{ maxWidth: '100%' }}>
           {candles.map((_, index) => (
             <Candle key={index} index={index} />
