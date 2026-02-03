@@ -62,11 +62,12 @@ const Messages = () => {
           }`}
         >
           <p
-            className={`font-serif text-gray-800 leading-relaxed text-center ${
+            className={`font-serif text-gray-800 leading-relaxed text-center mx-auto ${
               message.isTitle
                 ? 'text-xl sm:text-2xl font-bold text-deep-crimson'
                 : 'text-base sm:text-lg'
             }`}
+            style={{ textAlign: 'center' }}
           >
             {message.text}
           </p>
