@@ -12,7 +12,45 @@ function App() {
   }
 
   return (
-    <div className="min-h-screen bg-off-white">
+    <div className="min-h-screen bg-off-white relative overflow-hidden">
+      {/* Heart Pattern Background */}
+      <div className="fixed inset-0 pointer-events-none z-0">
+        <svg className="absolute inset-0 w-full h-full opacity-[0.08]" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <pattern id="heart-pattern" x="0" y="0" width="120" height="120" patternUnits="userSpaceOnUse">
+              <path d="M60,40 C60,30 50,25 45,30 C40,25 30,30 30,40 C30,50 45,60 60,70 C75,60 90,50 90,40 C90,30 80,25 75,30 C70,25 60,30 60,40 Z" 
+                    fill="#8B0000" 
+                    opacity="0.3"/>
+            </pattern>
+          </defs>
+          <rect width="100%" height="100%" fill="url(#heart-pattern)" />
+        </svg>
+        {/* Additional scattered hearts */}
+        <div className="absolute inset-0">
+          {Array.from({ length: 20 }).map((_, i) => (
+            <motion.div
+              key={i}
+              className="absolute text-deep-crimson opacity-10"
+              style={{
+                left: `${(i * 7 + 10) % 90}%`,
+                top: `${(i * 11 + 15) % 85}%`,
+                fontSize: `${20 + (i % 3) * 10}px`,
+              }}
+              animate={{
+                y: [0, -10, 0],
+                opacity: [0.1, 0.15, 0.1],
+              }}
+              transition={{
+                duration: 3 + (i % 2),
+                repeat: Infinity,
+                delay: i * 0.2,
+              }}
+            >
+              ❤️
+            </motion.div>
+          ))}
+        </div>
+      </div>
       <AnimatePresence mode="wait">
         {!isRevealed ? (
           <motion.div
@@ -21,7 +59,7 @@ function App() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.5 }}
-            className="min-h-screen flex items-center justify-center"
+            className="min-h-screen flex items-center justify-center relative z-10"
           >
             <motion.button
               onClick={handleOpen}
@@ -38,7 +76,7 @@ function App() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8 }}
-            className="min-h-screen py-8 px-4 sm:px-6 lg:px-8"
+            className="min-h-screen py-8 px-4 sm:px-6 lg:px-8 relative z-10"
           >
             <div className="max-w-6xl mx-auto">
               {/* Birthday Cake Section */}

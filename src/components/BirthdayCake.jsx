@@ -43,16 +43,20 @@ const BirthdayCake = () => {
       <div className="relative bg-gradient-to-b from-soft-rose to-deep-crimson rounded-t-3xl shadow-2xl"
            style={{ 
              width: 'min(280px, 90vw)', 
-             height: 'clamp(100px, 20vw, 120px)',
+             height: 'clamp(140px, 25vw, 160px)',
              maxWidth: '320px'
            }}>
-        {/* Cake Layers */}
-        <div className="absolute bottom-0 left-0 right-0 h-3/5 bg-gradient-to-b from-white to-soft-rose rounded-t-3xl" />
-        <div className="absolute bottom-0 left-0 right-0 h-2/5 bg-gradient-to-b from-white to-soft-rose rounded-t-2xl mx-4" />
+        {/* Cake Layers - Bottom (largest) */}
+        <div className="absolute bottom-0 left-0 right-0 h-2/5 bg-gradient-to-b from-white to-soft-rose rounded-t-3xl" />
+        {/* Cake Layers - Middle */}
+        <div className="absolute bottom-0 left-0 right-0 h-3/5 bg-gradient-to-b from-white to-soft-rose rounded-t-2xl mx-4" />
+        {/* Cake Layers - Top (smallest) */}
+        <div className="absolute bottom-0 left-0 right-0 h-4/5 bg-gradient-to-b from-white to-soft-rose rounded-t-xl mx-8" />
         
         {/* Frosting */}
         <div className="absolute top-0 left-0 right-0 h-3 bg-white rounded-t-3xl" />
         <div className="absolute top-0 left-0 right-0 h-2 bg-white rounded-t-2xl mx-4" />
+        <div className="absolute top-0 left-0 right-0 h-2 bg-white rounded-t-xl mx-8" />
         
         {/* Candles Container */}
         <div className="absolute -top-6 sm:-top-8 left-0 right-0 flex justify-center gap-2 sm:gap-3 px-2"

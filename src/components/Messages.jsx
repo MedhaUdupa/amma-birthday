@@ -19,7 +19,7 @@ const Messages = () => {
       text: "Thank you for being my constant. For the quiet strength you show and the loud way you cheer for me, I am so lucky to call you my Amma.",
     },
     {
-      text: "May your day be as radiant as your smile and as warm as your heart. Happy Birthday, Amma! Forever your Muddu",
+      text: "I love you more, to infinity and beyond.",
     },
   ]
 
