@@ -50,8 +50,21 @@ const Memories = () => {
             alt={`Memory ${index + 1}`}
             className="w-full h-56 sm:h-72 md:h-80 object-cover hover:scale-105 transition-transform duration-300"
             onError={(e) => {
-              // Fallback to placeholder if image doesn't exist
-              e.target.src = `https://images.unsplash.com/photo-${1500000000000 + index}?w=800&h=600&fit=crop`
+              // Try alternative path
+              const altPath = image.includes('/amma-birthday/') 
+                ? image.replace('/amma-birthday/', '/')
+                : `/amma-birthday/${image}`
+              if (e.target.src !== altPath) {
+                e.target.src = altPath
+              } else {
+                // Show placeholder if image still doesn't load
+                e.target.style.display = 'none'
+                e.target.parentElement.innerHTML = `
+                  <div class="w-full h-56 sm:h-72 md:h-80 flex items-center justify-center bg-soft-rose/20 border-2 border-dashed border-deep-crimson/30 rounded-lg">
+                    <p class="text-deep-crimson/50 font-serif">Memory ${index + 1}</p>
+                  </div>
+                `
+              }
             }}
             loading="lazy"
           />
