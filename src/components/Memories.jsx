@@ -59,38 +59,38 @@ const Memories = () => {
       const foundImages = []
       const maxImages = 20 // Maximum number of images to check
       
+      const checkImageExists = (imagePaths, pathIndex = 0) => {
+        return new Promise((resolve) => {
+          if (pathIndex >= imagePaths.length) {
+            resolve(false)
+            return
+          }
+          
+          const img = new Image()
+          img.onload = () => resolve(true)
+          img.onerror = () => {
+            // Try next fallback path
+            if (pathIndex + 1 < imagePaths.length) {
+              checkImageExists(imagePaths, pathIndex + 1).then(resolve)
+            } else {
+              resolve(false)
+            }
+          }
+          img.src = imagePaths[pathIndex]
+        })
+      }
+      
+      // Check images sequentially
       for (let i = 1; i <= maxImages; i++) {
         const filename = `memory${i}.jpeg`
         const imagePaths = getImagePath(filename)
+        const exists = await checkImageExists(imagePaths)
         
-        // Try to load the image to see if it exists
-        const img = new Image()
-        const checkImage = (pathIndex) => {
-          return new Promise((resolve) => {
-            if (pathIndex >= imagePaths.length) {
-              resolve(false)
-              return
-            }
-            
-            img.onload = () => {
-              resolve(true)
-            }
-            img.onerror = () => {
-              resolve(checkImage(pathIndex + 1))
-            }
-            img.src = imagePaths[pathIndex]
-          })
-        }
-        
-        const exists = await checkImage(0)
         if (exists) {
           foundImages.push(imagePaths)
-        } else {
-          // If we haven't found any images yet, continue checking
-          // If we found some but this one doesn't exist, we can stop
-          if (foundImages.length > 0) {
-            break
-          }
+        } else if (foundImages.length > 0) {
+          // If we found images before but this one doesn't exist, stop checking
+          break
         }
       }
       
