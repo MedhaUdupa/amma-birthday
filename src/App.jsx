@@ -51,9 +51,46 @@ function App() {
                   damping: 15,
                   delay: 0.2 
                 }}
-                className="flex justify-center mb-16 mt-8"
+                className="flex flex-col items-center mb-16 mt-8"
               >
                 <BirthdayCake />
+                
+                {/* Happy Birthday Message */}
+                <motion.div
+                  initial={{ y: 30, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{ delay: 0.6, duration: 0.8 }}
+                  className="mt-12 text-center"
+                >
+                  <motion.h1
+                    className="text-4xl sm:text-5xl md:text-6xl font-serif font-bold text-deep-crimson mb-4"
+                    initial={{ scale: 0.9 }}
+                    animate={{ scale: 1 }}
+                    transition={{ delay: 0.8, type: "spring", stiffness: 200 }}
+                  >
+                    Happy 48th Birthday
+                  </motion.h1>
+                  <motion.p
+                    className="text-2xl sm:text-3xl md:text-4xl font-serif text-soft-rose mt-2"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 1, duration: 0.8 }}
+                  >
+                    Amma! 🎂
+                  </motion.p>
+                  <motion.div
+                    className="mt-6 flex justify-center gap-2"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 1.2, duration: 0.8 }}
+                  >
+                    <span className="text-3xl">💝</span>
+                    <span className="text-3xl">✨</span>
+                    <span className="text-3xl">🎉</span>
+                    <span className="text-3xl">💐</span>
+                    <span className="text-3xl">🎈</span>
+                  </motion.div>
+                </motion.div>
               </motion.div>
 
               {/* Memories Section */}
