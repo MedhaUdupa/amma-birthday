@@ -36,6 +36,7 @@ const ImageWithFallback = ({ src, fallbacks = [], alt, className }) => {
 
 const Memories = () => {
   const [currentIndex, setCurrentIndex] = useState(0)
+  const [availableImages, setAvailableImages] = useState([])
   const basePath = import.meta.env.BASE_URL || '/amma-birthday/'
   
   // Try multiple path variations including GitHub raw URLs as fallback
@@ -52,28 +53,89 @@ const Memories = () => {
     return paths
   }
   
-  const imageFiles = ['memory1.jpeg', 'memory2.jpeg', 'memory3.jpeg', 'memory4.jpeg']
-  const images = imageFiles.map(file => getImagePath(file))
+  // Dynamically detect available images (check up to 20 images)
+  useEffect(() => {
+    const checkImages = async () => {
+      const foundImages = []
+      const maxImages = 20 // Maximum number of images to check
+      
+      for (let i = 1; i <= maxImages; i++) {
+        const filename = `memory${i}.jpeg`
+        const imagePaths = getImagePath(filename)
+        
+        // Try to load the image to see if it exists
+        const img = new Image()
+        const checkImage = (pathIndex) => {
+          return new Promise((resolve) => {
+            if (pathIndex >= imagePaths.length) {
+              resolve(false)
+              return
+            }
+            
+            img.onload = () => {
+              resolve(true)
+            }
+            img.onerror = () => {
+              resolve(checkImage(pathIndex + 1))
+            }
+            img.src = imagePaths[pathIndex]
+          })
+        }
+        
+        const exists = await checkImage(0)
+        if (exists) {
+          foundImages.push(imagePaths)
+        } else {
+          // If we haven't found any images yet, continue checking
+          // If we found some but this one doesn't exist, we can stop
+          if (foundImages.length > 0) {
+            break
+          }
+        }
+      }
+      
+      setAvailableImages(foundImages)
+    }
+    
+    checkImages()
+  }, [basePath])
 
   // Auto-advance carousel
   useEffect(() => {
+    if (availableImages.length === 0) return
+    
     const interval = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % images.length)
+      setCurrentIndex((prev) => (prev + 1) % availableImages.length)
     }, 5000) // Change image every 5 seconds
 
     return () => clearInterval(interval)
-  }, [images.length])
+  }, [availableImages.length])
 
   const goToSlide = (index) => {
     setCurrentIndex(index)
   }
 
   const goToPrevious = () => {
-    setCurrentIndex((prev) => (prev - 1 + images.length) % images.length)
+    if (availableImages.length === 0) return
+    setCurrentIndex((prev) => (prev - 1 + availableImages.length) % availableImages.length)
   }
 
   const goToNext = () => {
-    setCurrentIndex((prev) => (prev + 1) % images.length)
+    if (availableImages.length === 0) return
+    setCurrentIndex((prev) => (prev + 1) % availableImages.length)
+  }
+
+  // Show loading or empty state
+  if (availableImages.length === 0) {
+    return (
+      <div className="relative w-full max-w-md mx-auto px-4">
+        <div className="relative overflow-hidden rounded-lg shadow-2xl border-2 border-deep-crimson/20">
+          <div className="aspect-[9/16] w-full max-w-sm mx-auto flex items-center justify-center bg-soft-rose/20">
+            <p className="text-deep-crimson/50 font-serif text-center">Loading memories...</p>
+          </div>
+        </div>
+      </div>
+    )
   }
 
   return (
@@ -81,7 +143,7 @@ const Memories = () => {
       {/* Carousel Container */}
       <div className="relative overflow-hidden rounded-lg shadow-2xl border-2 border-deep-crimson/20">
         <AnimatePresence mode="wait">
-          {images.map((imagePaths, index) => {
+          {availableImages.map((imagePaths, index) => {
             if (index !== currentIndex) return null
             const [primaryPath, ...fallbackPaths] = imagePaths
             
@@ -108,42 +170,48 @@ const Memories = () => {
         </AnimatePresence>
 
         {/* Navigation Arrows */}
-        <button
-          onClick={goToPrevious}
-          className="absolute left-4 top-1/2 -translate-y-1/2 bg-deep-crimson/80 hover:bg-deep-crimson text-white p-3 rounded-full shadow-lg transition-all duration-300 z-10"
-          aria-label="Previous image"
-        >
-          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-          </svg>
-        </button>
-        
-        <button
-          onClick={goToNext}
-          className="absolute right-4 top-1/2 -translate-y-1/2 bg-deep-crimson/80 hover:bg-deep-crimson text-white p-3 rounded-full shadow-lg transition-all duration-300 z-10"
-          aria-label="Next image"
-        >
-          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-          </svg>
-        </button>
+        {availableImages.length > 1 && (
+          <>
+            <button
+              onClick={goToPrevious}
+              className="absolute left-4 top-1/2 -translate-y-1/2 bg-deep-crimson/80 hover:bg-deep-crimson text-white p-3 rounded-full shadow-lg transition-all duration-300 z-10"
+              aria-label="Previous image"
+            >
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              </svg>
+            </button>
+            
+            <button
+              onClick={goToNext}
+              className="absolute right-4 top-1/2 -translate-y-1/2 bg-deep-crimson/80 hover:bg-deep-crimson text-white p-3 rounded-full shadow-lg transition-all duration-300 z-10"
+              aria-label="Next image"
+            >
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
+          </>
+        )}
       </div>
 
       {/* Dots Indicator */}
-      <div className="flex justify-center gap-2 mt-6">
-        {images.map((_, index) => (
-          <button
-            key={index}
-            onClick={() => goToSlide(index)}
-            className={`transition-all duration-300 rounded-full ${
-              index === currentIndex
-                ? 'bg-deep-crimson w-8 h-3'
-                : 'bg-deep-crimson/30 w-3 h-3 hover:bg-deep-crimson/50'
-            }`}
-            aria-label={`Go to slide ${index + 1}`}
-          />
-        ))}
-      </div>
+      {availableImages.length > 1 && (
+        <div className="flex justify-center gap-2 mt-6 flex-wrap">
+          {availableImages.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => goToSlide(index)}
+              className={`transition-all duration-300 rounded-full ${
+                index === currentIndex
+                  ? 'bg-deep-crimson w-8 h-3'
+                  : 'bg-deep-crimson/30 w-3 h-3 hover:bg-deep-crimson/50'
+              }`}
+              aria-label={`Go to slide ${index + 1}`}
+            />
+          ))}
+        </div>
+      )}
     </div>
   )
 }

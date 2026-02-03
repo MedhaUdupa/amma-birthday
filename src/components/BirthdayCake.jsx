@@ -38,29 +38,47 @@ const BirthdayCake = () => {
   const candles = Array.from({ length: 4 }, (_, i) => i)
 
   return (
-    <div className="relative w-full flex justify-center">
-      {/* Cake Base */}
-      <div className="relative bg-gradient-to-b from-soft-rose to-deep-crimson rounded-t-3xl shadow-2xl"
-           style={{ 
-             width: 'min(280px, 90vw)', 
-             height: 'clamp(140px, 25vw, 160px)',
-             maxWidth: '320px'
-           }}>
-        {/* Cake Layers - Bottom (largest) */}
-        <div className="absolute bottom-0 left-0 right-0 h-2/5 bg-gradient-to-b from-white to-soft-rose rounded-t-3xl" />
-        {/* Cake Layers - Middle */}
-        <div className="absolute bottom-0 left-0 right-0 h-3/5 bg-gradient-to-b from-white to-soft-rose rounded-t-2xl mx-4" />
-        {/* Cake Layers - Top (smallest) */}
-        <div className="absolute bottom-0 left-0 right-0 h-4/5 bg-gradient-to-b from-white to-soft-rose rounded-t-xl mx-8" />
+    <div className="relative w-full flex justify-center items-end" style={{ height: '280px' }}>
+      {/* Bottom Tier (Largest) */}
+      <div className="relative" style={{ width: '280px', height: '100px' }}>
+        <div className="absolute bottom-0 left-0 right-0 h-full bg-gradient-to-b from-white via-soft-rose to-deep-crimson rounded-t-3xl shadow-xl border-2 border-deep-crimson/20" />
+        <div className="absolute top-0 left-0 right-0 h-4 bg-white rounded-t-3xl" style={{ 
+          background: 'linear-gradient(to bottom, rgba(255,255,255,0.9), rgba(255,255,255,0.7))',
+          boxShadow: '0 -2px 10px rgba(139, 0, 0, 0.1)'
+        }} />
+      </div>
+
+      {/* Middle Tier */}
+      <div className="absolute" style={{ 
+        width: '220px', 
+        height: '80px',
+        bottom: '100px',
+        left: '50%',
+        transform: 'translateX(-50%)'
+      }}>
+        <div className="absolute bottom-0 left-0 right-0 h-full bg-gradient-to-b from-white via-soft-rose to-deep-crimson rounded-t-2xl shadow-xl border-2 border-deep-crimson/20" />
+        <div className="absolute top-0 left-0 right-0 h-3 bg-white rounded-t-2xl" style={{ 
+          background: 'linear-gradient(to bottom, rgba(255,255,255,0.9), rgba(255,255,255,0.7))',
+          boxShadow: '0 -2px 10px rgba(139, 0, 0, 0.1)'
+        }} />
+      </div>
+
+      {/* Top Tier (Smallest) */}
+      <div className="absolute" style={{ 
+        width: '160px', 
+        height: '60px',
+        bottom: '180px',
+        left: '50%',
+        transform: 'translateX(-50%)'
+      }}>
+        <div className="absolute bottom-0 left-0 right-0 h-full bg-gradient-to-b from-white via-soft-rose to-deep-crimson rounded-t-xl shadow-xl border-2 border-deep-crimson/20" />
+        <div className="absolute top-0 left-0 right-0 h-3 bg-white rounded-t-xl" style={{ 
+          background: 'linear-gradient(to bottom, rgba(255,255,255,0.9), rgba(255,255,255,0.7))',
+          boxShadow: '0 -2px 10px rgba(139, 0, 0, 0.1)'
+        }} />
         
-        {/* Frosting */}
-        <div className="absolute top-0 left-0 right-0 h-3 bg-white rounded-t-3xl" />
-        <div className="absolute top-0 left-0 right-0 h-2 bg-white rounded-t-2xl mx-4" />
-        <div className="absolute top-0 left-0 right-0 h-2 bg-white rounded-t-xl mx-8" />
-        
-        {/* Candles Container */}
-        <div className="absolute -top-6 sm:-top-8 left-0 right-0 flex justify-center gap-2 sm:gap-3 px-2"
-             style={{ maxWidth: '100%' }}>
+        {/* Candles Container on Top Tier */}
+        <div className="absolute -top-8 left-0 right-0 flex justify-center gap-2 sm:gap-3 px-2">
           {candles.map((_, index) => (
             <Candle key={index} index={index} />
           ))}
