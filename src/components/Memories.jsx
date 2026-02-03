@@ -41,12 +41,15 @@ const Memories = () => {
   
   // Try multiple path variations including GitHub raw URLs as fallback
   const getImagePath = (filename) => {
+    // Remove trailing slash from basePath if present
+    const cleanBasePath = basePath.endsWith('/') ? basePath.slice(0, -1) : basePath
     const paths = [
-      `${basePath}images/${filename}`,  // With base path (primary)
+      `${cleanBasePath}/images/${filename}`,  // With base path (primary)
+      `https://medhaudupa.github.io/amma-birthday/images/${filename}`, // Direct GitHub Pages URL
+      `https://raw.githubusercontent.com/MedhaUdupa/amma-birthday/main/public/images/${filename}`, // GitHub raw URL
       `./images/${filename}`,           // Relative path
       `/images/${filename}`,            // Absolute from root
       `images/${filename}`,             // Relative no dot
-      `https://raw.githubusercontent.com/MedhaUdupa/amma-birthday/main/public/images/${filename}`, // GitHub raw URL
     ]
     return paths
   }

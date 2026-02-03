@@ -62,7 +62,7 @@ const Messages = () => {
           }`}
         >
           <p
-            className={`font-serif text-gray-800 leading-relaxed ${
+            className={`font-serif text-gray-800 leading-relaxed text-center ${
               message.isTitle
                 ? 'text-xl sm:text-2xl font-bold text-deep-crimson'
                 : 'text-base sm:text-lg'
