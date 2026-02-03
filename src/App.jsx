@@ -76,19 +76,19 @@ function App() {
                     animate={{ opacity: 1 }}
                     transition={{ delay: 1, duration: 0.8 }}
                   >
-                    Amma! 🎂
+                    Amma!
                   </motion.p>
                   <motion.div
-                    className="mt-6 flex justify-center gap-2"
+                    className="mt-6 flex justify-center gap-3"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: 1.2, duration: 0.8 }}
                   >
-                    <span className="text-3xl">💝</span>
-                    <span className="text-3xl">✨</span>
-                    <span className="text-3xl">🎉</span>
-                    <span className="text-3xl">💐</span>
-                    <span className="text-3xl">🎈</span>
+                    <span className="text-3xl">❤️</span>
+                    <span className="text-3xl">💖</span>
+                    <span className="text-3xl">❤️</span>
+                    <span className="text-3xl">💖</span>
+                    <span className="text-3xl">❤️</span>
                   </motion.div>
                 </motion.div>
               </motion.div>
