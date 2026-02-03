@@ -5,10 +5,10 @@ const Memories = () => {
   // These will be placed in the public folder
   const basePath = import.meta.env.BASE_URL || '/amma-birthday/'
   const images = [
-    `${basePath}images/memory1.jpg`,
-    `${basePath}images/memory2.jpg`,
-    `${basePath}images/memory3.jpg`,
-    `${basePath}images/memory4.jpg`,
+    `${basePath}images/memory1.jpeg`,
+    `${basePath}images/memory2.jpeg`,
+    `${basePath}images/memory3.jpeg`,
+    `${basePath}images/memory4.jpeg`,
   ]
 
   const containerVariants = {

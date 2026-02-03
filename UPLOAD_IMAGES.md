@@ -7,10 +7,10 @@
 2. **Click "Add file" → "Upload files"**
 
 3. **Upload these 4 images:**
-   - `memory1.jpg`
-   - `memory2.jpg`
-   - `memory3.jpg`
-   - `memory4.jpg`
+   - `memory1.jpeg`
+   - `memory2.jpeg`
+   - `memory3.jpeg`
+   - `memory4.jpeg`
 
 4. **Scroll down and click "Commit changes"**
 
@@ -19,8 +19,8 @@
 ---
 
 ## Your images should be:
-- Format: JPG or JPEG
-- Names: memory1.jpg, memory2.jpg, memory3.jpg, memory4.jpg
+- Format: JPEG
+- Names: memory1.jpeg, memory2.jpeg, memory3.jpeg, memory4.jpeg
 - Location: `public/images/` folder
 
 ---
