@@ -77,7 +77,7 @@ const Memories = () => {
   }
 
   return (
-    <div className="relative w-full max-w-4xl mx-auto px-4">
+    <div className="relative w-full max-w-md mx-auto px-4">
       {/* Carousel Container */}
       <div className="relative overflow-hidden rounded-lg shadow-2xl border-2 border-deep-crimson/20">
         <AnimatePresence mode="wait">
@@ -94,7 +94,7 @@ const Memories = () => {
                 transition={{ duration: 0.5, ease: "easeInOut" }}
                 className="relative w-full"
               >
-                <div className="aspect-video w-full">
+                <div className="aspect-[9/16] w-full max-w-sm mx-auto">
                   <ImageWithFallback 
                     src={primaryPath}
                     fallbacks={fallbackPaths}
