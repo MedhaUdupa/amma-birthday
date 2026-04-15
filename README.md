@@ -1,14 +1,14 @@
-# Happy 48th Birthday, Amma! 🎂
+# Happy 48th Birthday, Amma! 
 
 A beautiful, responsive single-page React website built with Tailwind CSS and Framer Motion.
 
 ## Features
 
-- ✨ Elegant landing page with "Open with Love" button
-- 🎂 Animated birthday cake with 48 flickering candles
-- 📸 Memories section with image grid
-- 💌 Messages section with beautiful typography
-- 📱 Fully responsive (Mobile, Tablet, Desktop)
+- Elegant landing page with "Open with Love" button
+- Animated birthday cake with 48 flickering candles
+- Memories section with image grid
+- Messages section with beautiful typography
+- Fully responsive (Mobile, Tablet, Desktop)
 
 ## Quick Start
 
